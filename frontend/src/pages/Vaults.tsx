@@ -29,9 +29,7 @@ export function VaultsPage() {
 
   useEffect(() => {
     refreshVaults().catch(() => {
-      // handled on actions
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onCreateVault = async (e: React.FormEvent) => {

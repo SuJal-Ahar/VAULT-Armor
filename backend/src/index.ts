@@ -151,13 +151,13 @@ app.post("/api/v1/vault/open", authMiddleware, async (req, res) => {
             );
 
             items.push({
-                //@ts-ignore
+                // @ts-ignore
                 id: item._id,
-                //@ts-ignore
+                // @ts-ignore
                 title: item.title,
-                //@ts-ignore
+                // @ts-ignore
                 link: item.link || "",
-                //@ts-ignore
+                // @ts-ignore
                 description: item.description || "",
                 password: decrypted
             });
@@ -200,7 +200,7 @@ app.delete("/api/v1/vault/:vaultId/item/:itemId", authMiddleware, async (req: Re
     const sub = vault.items.id(itemId);
     if (!sub) return res.status(404).json({ message: "Item not found" });
 
-    //@ts-ignore
+    // @ts-ignore
     sub.deleteOne();
     await vault.save();
 

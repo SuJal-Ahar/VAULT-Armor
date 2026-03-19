@@ -89,7 +89,6 @@ export default function App() {
               collapsed={sidebarCollapsed}
               onToggleCollapsed={() => setSidebarCollapsed((v) => !v)}
               onNavigate={() => {
-                // close mobile overlay if open
                 setSidebarOpen(false)
               }}
             />
