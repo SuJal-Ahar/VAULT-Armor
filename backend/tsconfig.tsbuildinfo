@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/middlewares/authmiddleware.ts","./src/models/usermodel.ts","./src/models/vault.ts","./src/routes/vaultroute.ts","./src/schemas/loginvalidation.ts","./src/schemas/uservalidationschema.ts","./src/utils/cryptoutils.ts"],"version":"5.9.3"}
