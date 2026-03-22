@@ -1,4 +1,6 @@
 node_modules/
 .env
+.env.*
 backend/dist/
 frontend/dist/
+VAULT-Armor/

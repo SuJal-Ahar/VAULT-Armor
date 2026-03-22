@@ -8,9 +8,8 @@ services:
     plan: free
     region: oregon
     branch: main
-    rootDir: backend
-    buildCommand: npm install --include=dev && npm run build
-    startCommand: npm start
+    buildCommand: npm run install:all && npm run build
+    startCommand: npm run start
     healthCheckPath: /
     envVars:
       - key: JWT_SECRET
