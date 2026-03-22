@@ -250,7 +250,7 @@ app.post("/api/v1/vault/add-item", authMiddleware, async (req: Request, res: Res
 });
 
 if (hasFrontendBuild) {
-  app.get("*", (_req, res) => {
+  app.get("/{*splat}", (_req, res) => {
     res.sendFile(path.join(frontendDistPath, "index.html"));
   });
 } else {
