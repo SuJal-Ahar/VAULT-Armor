@@ -1,0 +1,21 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Render will prompt for these on first deploy (sync: false). Use the same values as your local .env pattern.
+
+services:
+  - type: web
+    name: vault-armor-api
+    runtime: node
+    plan: free
+    region: oregon
+    branch: main
+    rootDir: backend
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: JWT_SECRET
+        sync: false
+      - key: MONGODB_URI_TEMPLATE
+        sync: false
+      - key: DB_PASSWORD
+        sync: false

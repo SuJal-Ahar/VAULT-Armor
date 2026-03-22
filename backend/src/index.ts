@@ -1,4 +1,7 @@
 import express from "express";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { encryptData, decryptData, hashPasskey, verifyPasskey } from "./utils/cryptoUtils.js";
 import type { Request, Response } from "express";
 import dotenv from "dotenv";
@@ -34,11 +37,18 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendDistPath = path.join(__dirname, "../../frontend/dist");
+const hasFrontendBuild = fs.existsSync(path.join(frontendDistPath, "index.html"));
+
+if (hasFrontendBuild) {
+  app.use(express.static(frontendDistPath));
+}
+
 await mongoose.connect(MONGODB_URI);
 
-app.get("/", (req, res) => {
-    res.send("Backend running");
-});
+
 
 app.post("/api/v1/signup", async (req, res) => { 
     const result = UserValidSchema.safeParse(req.body);
@@ -239,4 +249,17 @@ app.post("/api/v1/vault/add-item", authMiddleware, async (req: Request, res: Res
   }
 });
 
-app.listen(3000, () => {});
+if (hasFrontendBuild) {
+  app.get("*", (_req, res) => {
+    res.sendFile(path.join(frontendDistPath, "index.html"));
+  });
+} else {
+  app.get("/", (_req, res) => {
+    res.json({ ok: true, service: "vault-armor-api" });
+  });
+}
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
